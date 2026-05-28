@@ -1,0 +1,7 @@
+.build/
+.swiftpm/
+DerivedData/
+.DS_Store
+
+Assets/Pet/_source_sheets/*chroma.png
+Assets/Pet/*.png
