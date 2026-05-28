@@ -10,6 +10,24 @@ swift run JayJaiPetDesktop
 
 Run the command from the repo root so the app can find `Assets/Pet/*.png`. The prototype opens a transparent floating pet overlay near the bottom-right of the screen.
 
+## Build a Local App
+
+You do not need full Xcode. With Apple's Command Line Tools installed, build a double-clickable app bundle:
+
+```sh
+./scripts/build-app.sh
+open .build/JayJaiPetDesktop.app
+```
+
+The generated app is local only and lives at:
+
+```text
+.build/JayJaiPetDesktop.app
+```
+
+The build script copies `Assets/Pet/*.png` into the app bundle so the pet sprites work when launched from Finder.
+It also uses `Assets/Pet/idle_00.png` as the app icon.
+
 ## V1 Behavior
 
 - Transparent borderless desktop overlay

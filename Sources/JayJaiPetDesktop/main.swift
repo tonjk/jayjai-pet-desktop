@@ -54,9 +54,7 @@ private struct PetSprites {
     }
 
     static func load() -> PetSprites {
-        let assetDirectory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-            .appendingPathComponent("Assets")
-            .appendingPathComponent("Pet")
+        let assetDirectory = assetDirectory()
 
         return PetSprites(
             idle: loadFrames(named: "idle", from: assetDirectory),
@@ -64,6 +62,22 @@ private struct PetSprites {
             sleepy: loadFrames(named: "sleepy", from: assetDirectory),
             walking: loadFrames(named: "walk", from: assetDirectory)
         )
+    }
+
+    private static func assetDirectory() -> URL {
+        if let resourceURL = Bundle.main.resourceURL {
+            let bundledAssets = resourceURL
+                .appendingPathComponent("Assets")
+                .appendingPathComponent("Pet")
+
+            if FileManager.default.fileExists(atPath: bundledAssets.path) {
+                return bundledAssets
+            }
+        }
+
+        return URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+            .appendingPathComponent("Assets")
+            .appendingPathComponent("Pet")
     }
 
     func frames(for mood: PetMood) -> [NSImage] {
