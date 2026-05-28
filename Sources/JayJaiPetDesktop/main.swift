@@ -169,7 +169,7 @@ private final class PetView: NSView {
     }
 
     override func mouseDragged(with event: NSEvent) {
-        guard let window, let screen = window.screen ?? NSScreen.main else {
+        guard let window else {
             return
         }
 
@@ -184,7 +184,9 @@ private final class PetView: NSView {
             y: mouse.y - (window.frame.height - dragOffset.y)
         )
 
-        let visibleFrame = screen.visibleFrame
+        let visibleFrame = NSScreen.screens
+            .map(\.visibleFrame)
+            .reduce(NSScreen.main?.visibleFrame ?? window.frame) { $0.union($1) }
         origin.x = min(max(origin.x, visibleFrame.minX), visibleFrame.maxX - window.frame.width)
         origin.y = min(max(origin.y, visibleFrame.minY), visibleFrame.maxY - window.frame.height)
 
